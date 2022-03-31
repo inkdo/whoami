@@ -7,30 +7,30 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_test:
-    name: Build App
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+  # build_test:
+  #   name: Build App
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       node-version: [14.x]
+  #   steps:
+  #     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+  #     - uses: actions/checkout@v2
 
-      - name: setup node
-        uses: actions/setup-node@master
-        with:
-          node-version: ${{ matrix.node-version }}
+  #     # - name: setup node
+  #     #   uses: actions/setup-node@master
+  #     #   with:
+  #     #     node-version: ${{ matrix.node-version }}
 
-      # install applicaion dependencies
-      - name: Install dependencies
-        run: |
-          npm install
-          npm ci 
-      # build the apps     
-      # - name: build
-      #   run: |
-      #     npm run build
+  #     # install applicaion dependencies
+  #     # - name: Install dependencies
+  #     #   run: |
+  #     #     npm install
+  #     #     npm ci 
+  #     # # build the apps     
+  #     # # - name: build
+  #     # #   run: |
+  #     # #     npm run build
 
   push_to_Docker_Hub:
     name: Push Images to DockerHub
@@ -70,12 +70,12 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/whoami-no-cors:0.1.0
+          tags: ${{ secrets.DOCKER_USERNAME }}/whoami-no-cors:0.1.1
         
       - name: Run the image in a container
         uses: addnab/docker-run-action@v3
         with:
-          image: ${{ secrets.DOCKER_USERNAME }}/whoami-no-cors:0.1.0
+          image: ${{ secrets.DOCKER_USERNAME }}/whoami-no-cors:0.1.1
           run: |
             echo "runing the docker image"
             echo "Testing the nodejs  app endpoints"
