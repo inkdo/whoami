@@ -2,7 +2,7 @@
 
 TAG_NAME := $(shell git tag -l --contains HEAD)
 
-IMAGE_NAME := traefik/whoami
+IMAGE_NAME := j8dockerid/whoami-no-cors
 
 default: check test build
 
